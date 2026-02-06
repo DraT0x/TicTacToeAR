@@ -256,6 +256,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71257617}
   m_CullTransparentMesh: 1
+--- !u!114 &388487124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Player/PrimaryTap
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
+  m_Asset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_ActionId: e6ed87e1-5baf-41b4-8b0d-4a0c0b4ceaf3
 --- !u!1 &655114527
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +797,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 963601772}
+  - component: {fileID: 963601774}
+  - component: {fileID: 963601773}
+  - component: {fileID: 963601775}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -805,6 +822,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963601773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963601771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd58a8a8628984448589cfdddd41dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ARPlacementManager
+  PrefabXSymbol: {fileID: 4772370418235033383, guid: 8e8fc027934fb924d8b413583d30383c, type: 3}
+  PrefabOSymbol: {fileID: 5465037790995954718, guid: c7172443dc9b50a489799ed146f71e1a, type: 3}
+  PrefabGrille: {fileID: 8362596328021697448, guid: d1f6c42eb6e2da04580ba6d6083a32d8, type: 3}
+  tapAction: {fileID: 388487124}
+  aRRaycastManager: {fileID: 2021280109}
+--- !u!114 &963601774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963601771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7a01af6d5969a4c98c378ff8f7cd02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameController
+--- !u!114 &963601775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963601771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b7868bf46ede14a9ec150be63e1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ARStatusFeedback
+  planeManager: {fileID: 2021280110}
+  statusText: {fileID: 707785101}
 --- !u!1 &984067160
 GameObject:
   m_ObjectHideFlags: 0
