@@ -800,7 +800,6 @@ GameObject:
   - component: {fileID: 963601774}
   - component: {fileID: 963601773}
   - component: {fileID: 963601775}
-  - component: {fileID: 963601777}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -808,25 +807,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &963601772
-RectTransform:
+--- !u!4 &963601772
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963601771}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: -0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &963601773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,7 +837,7 @@ MonoBehaviour:
   PrefabXSymbol: {fileID: 4772370418235033383, guid: 8e8fc027934fb924d8b413583d30383c, type: 3}
   PrefabOSymbol: {fileID: 5465037790995954718, guid: c7172443dc9b50a489799ed146f71e1a, type: 3}
   PrefabGrille: {fileID: 8362596328021697448, guid: d1f6c42eb6e2da04580ba6d6083a32d8, type: 3}
-  boutonRepositionnement: {fileID: 1324468804}
+  boutonRepositionnement: {fileID: 0}
   tapAction: {fileID: 388487124}
   aRRaycastManager: {fileID: 2021280109}
 --- !u!114 &963601774
@@ -857,9 +852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7a01af6d5969a4c98c378ff8f7cd02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameController
-  joueurActuelTexte: {fileID: 1787369671}
-  finPartiePannel: {fileID: 1991202053}
-  victoireTexte: {fileID: 655114529}
 --- !u!114 &963601775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -874,29 +866,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ARStatusFeedback
   planeManager: {fileID: 2021280110}
   statusText: {fileID: 707785101}
---- !u!223 &963601777
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963601771}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &984067160
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,6 +1004,7 @@ GameObject:
   - component: {fileID: 1072852079}
   - component: {fileID: 1072852078}
   - component: {fileID: 1072852077}
+  - component: {fileID: 1072852076}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1042,6 +1012,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1072852076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072852075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &1072852077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1372,7 +1359,6 @@ GameObject:
   - component: {fileID: 1324468805}
   - component: {fileID: 1324468804}
   - component: {fileID: 1324468803}
-  - component: {fileID: 1324468807}
   m_Layer: 5
   m_Name: ResetPlacementButton
   m_TagString: Untagged
@@ -1494,29 +1480,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324468801}
   m_CullTransparentMesh: 1
---- !u!223 &1324468807
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324468801}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &1424083898
 GameObject:
   m_ObjectHideFlags: 0
@@ -2124,7 +2087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Placer La Grille Pour D\xE9buter"
+  m_text: Tour de X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2467,6 +2430,6 @@ SceneRoots:
   - {fileID: 984067162}
   - {fileID: 2021280107}
   - {fileID: 1639876630}
+  - {fileID: 963601772}
   - {fileID: 1072852079}
   - {fileID: 1302992078}
-  - {fileID: 963601772}
