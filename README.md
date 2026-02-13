@@ -1,7 +1,7 @@
 # TicTacToeAR
 Exercice Sommatif - Tic Tac Toe en Réalité Augmentée
 
-Auteur : Félix Dupras-Simard
+Auteur : Félix Dupras-Simard  
 Simulation d'un Tic Tac Toe dans un environnement en Réalité Augmentée
 
 Version Unity : 6000.3.4f1
@@ -23,5 +23,5 @@ Version Google ARCore XR Plugin : 6.3.3
 <img width="845" height="475" alt="EcranVictoire" src="https://github.com/user-attachments/assets/dc89ae23-d38d-487e-b584-3a1f6d8bc633" />
 
 Annexe (RÊQUETES IA) :
-Split the code of VerificationVictoire() 
-How to fix raycast on UI going trough
+Split the code of VerificationVictoire()   
+How to fix raycast on UI going trough  
