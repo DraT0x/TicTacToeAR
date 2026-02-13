@@ -70,10 +70,33 @@ public class GameController : MonoBehaviour
 
     public void ResetPlacement()
     {
+        if (grilleActuelle == null) return;
+
         JoueurActuel = "X";
         finPartie = false;
+        finPartiePannel.SetActive(false);
+
+        for (int i = 0; i < grilleCases.Length; i++)
+            grilleCases[i] = "";
 
         JoueurActuelTexte.text = $"Tour de {JoueurActuel}";
+
+        // Reset de la grille
+        for (int i = 0; i < grilleActuelle.transform.childCount; i++)
+        {
+            Transform caseEnfant = grilleActuelle.transform.GetChild(i);
+
+            for (int j = caseEnfant.childCount - 1; j >= 0; j--)
+            {
+                Destroy(caseEnfant.GetChild(j).gameObject);
+            }
+
+            MeshRenderer meshRenderer = caseEnfant.GetComponent<MeshRenderer>();
+            if (meshRenderer != null)
+                meshRenderer.enabled = true;
+
+            caseEnfant.tag = "Libre";
+        }
     }
 
     // Jeu

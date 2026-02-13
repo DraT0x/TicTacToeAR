@@ -20,7 +20,6 @@ public class ARPlacementManager : MonoBehaviour
     private GameObject instanceGrille;
 
     // Gestion de la grille / Repositionnement
-    private ARAnchor grilleAnchor;
     private GameObject anchorObject;
 
     [SerializeField]
@@ -76,7 +75,7 @@ public class ARPlacementManager : MonoBehaviour
             if (instanceGrille == null)
             {
                 anchorObject = new GameObject("GrilleAnchor");
-                grilleAnchor = anchorObject.AddComponent<ARAnchor>();
+                anchorObject.AddComponent<ARAnchor>();
 
                 anchorObject.transform.SetPositionAndRotation(position, pose.rotation);
 
@@ -124,9 +123,8 @@ public class ARPlacementManager : MonoBehaviour
             if (result.gameObject.name == "Canvas") continue; // Ignore le canvas
 
             // Vérifie si c'est vraiment un élément du UI
-            if (result.gameObject.GetComponent<UnityEngine.UI.Selectable>() != null)
+            if (result.gameObject.GetComponent<Selectable>() != null)
             {
-                Debug.Log($"Blocked by: {result.gameObject.name}");
                 return true;
             }
         }
