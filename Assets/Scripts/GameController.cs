@@ -121,12 +121,32 @@ public class GameController : MonoBehaviour
                 grilleCases[pos1] == grilleCases[pos2] &&
                 grilleCases[pos2] == grilleCases[pos3])
             {
+                Transform grilleTransform = grilleActuelle.transform;
+
+                // Suggestion IA : Méthode pour atteindre l'enfant de la case
+                ModificationVictoire(grilleTransform.Find(pos1.ToString()));
+                ModificationVictoire(grilleTransform.Find(pos2.ToString()));
+                ModificationVictoire(grilleTransform.Find(pos3.ToString()));
+                // Fin suggestion
+
                 return true;
             }
         }
 
         return false;
     }
+
+    // Suggestion IA : Méthode pour modifier la couleur de l'enfant
+    private void ModificationVictoire(Transform parent)
+    {
+        Animator[] animators = parent.GetComponentsInChildren<Animator>();
+
+        foreach (Animator animator in animators)
+        {
+            animator.SetTrigger("Victoire");
+        }
+    }
+    // Fin suggestion
 
     private bool VerifierMatchNul()
     {
