@@ -858,6 +858,7 @@ MonoBehaviour:
   JoueurActuelTexte: {fileID: 1787369671}
   finPartiePannel: {fileID: 1991202053}
   controlPannel: {fileID: 1493575072}
+  statusPannel: {fileID: 1995313201}
   victoireTexte: {fileID: 655114529}
 --- !u!114 &963601775
 MonoBehaviour:

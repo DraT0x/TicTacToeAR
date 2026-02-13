@@ -135,12 +135,6 @@ public class ARPlacementManager : MonoBehaviour
     }
     // Fin de la solution
 
-    public void ResetPlacement()
-    {
-        Destroy(instanceGrille);
-
-    }
-
     public void ModeRepositionnement()
     {
         modeRepositionnement = !modeRepositionnement;

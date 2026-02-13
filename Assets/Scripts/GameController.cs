@@ -21,6 +21,9 @@ public class GameController : MonoBehaviour
     private GameObject controlPannel;
 
     [SerializeField]
+    private GameObject statusPannel;
+
+    [SerializeField]
     private TextMeshProUGUI victoireTexte;
 
     // Références Tic Tac Toe
@@ -144,8 +147,10 @@ public class GameController : MonoBehaviour
     {
         finPartie = true;
 
+        controlPannel.SetActive(false);
+        statusPannel.SetActive(false);
+
         victoireTexte.text = texteAffichage;
         finPartiePannel.SetActive(true);
-        controlPannel.SetActive(false);
     }
 }
