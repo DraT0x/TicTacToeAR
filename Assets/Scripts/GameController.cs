@@ -12,10 +12,13 @@ public class GameController : MonoBehaviour
 
     // UI UNITY
     [SerializeField]
-    private TextMeshProUGUI joueurActuelTexte;
+    private TextMeshProUGUI JoueurActuelTexte;
 
     [SerializeField]
     private GameObject finPartiePannel;
+
+    [SerializeField]
+    private GameObject controlPannel;
 
     [SerializeField]
     private TextMeshProUGUI victoireTexte;
@@ -31,7 +34,7 @@ public class GameController : MonoBehaviour
         {0,4,8}, {2,4,6} // Diagonales
     };
 
-    private string joueurActuel = "X";
+    public string JoueurActuel { get; set; } = "X";
 
     private bool finPartie = false;
 
@@ -55,8 +58,8 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < grilleCases.Length; i++)
             grilleCases[i] = "";
 
-        joueurActuel = "X";
-        joueurActuelTexte.text = $"Tour de {joueurActuel}";
+        JoueurActuel = "X";
+        JoueurActuelTexte.text = $"Tour de {JoueurActuel}";
 
         finPartie = false;
         finPartiePannel.SetActive(false);
@@ -64,10 +67,10 @@ public class GameController : MonoBehaviour
 
     public void ResetPlacement()
     {
-        joueurActuel = "X";
+        JoueurActuel = "X";
         finPartie = false;
 
-        joueurActuelTexte.text = $"Tour de {joueurActuel}";
+        JoueurActuelTexte.text = $"Tour de {JoueurActuel}";
     }
 
     // Jeu
@@ -75,13 +78,14 @@ public class GameController : MonoBehaviour
     {
         if (finPartie) return;
 
-        grilleCases[index] = joueurActuel;
+        grilleCases[index] = JoueurActuel;
 
         if (VerifierVictoire())
         {
-            FinDePartie($"Victoire de {joueurActuel}");
+            FinDePartie($"Victoire de {JoueurActuel}");
             return;
         }
+
 
         if (VerifierMatchNul())
         {
@@ -94,19 +98,45 @@ public class GameController : MonoBehaviour
 
     public void ChangerTour()
     {
-        joueurActuel = joueurActuel == "X" ? "O" : "X";
+        JoueurActuel = JoueurActuel == "X" ? "O" : "X";
 
-        joueurActuelTexte.text = $"Tour de {joueurActuel}";
+        JoueurActuelTexte.text = $"Tour de {JoueurActuel}";
     }
 
     // Vérification Match
     private bool VerifierVictoire()
     {
+        // Parcourir toutes les combinaisons gagnantes possibles
+        for (int i = 0; i < combosGagnant.GetLength(0); i++)
+        {
+            int pos1 = combosGagnant[i, 0];
+            int pos2 = combosGagnant[i, 1];
+            int pos3 = combosGagnant[i, 2];
+
+            // Vérifier si les trois cases de la combinaison contiennent le même symbole et ne sont pas vides
+            if (!string.IsNullOrEmpty(grilleCases[pos1]) &&
+                grilleCases[pos1] == grilleCases[pos2] &&
+                grilleCases[pos2] == grilleCases[pos3])
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 
     private bool VerifierMatchNul()
     {
+        if (VerifierVictoire())
+            return false;
+
+        // Vérifier que toutes les cases sont remplies
+        for (int i = 0; i < grilleCases.Length; i++)
+        {
+            if (string.IsNullOrEmpty(grilleCases[i]))
+                return false;
+        }
+
         return true;
     }
 
@@ -116,5 +146,6 @@ public class GameController : MonoBehaviour
 
         victoireTexte.text = texteAffichage;
         finPartiePannel.SetActive(true);
+        controlPannel.SetActive(false);
     }
 }

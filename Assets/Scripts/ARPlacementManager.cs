@@ -1,4 +1,4 @@
-// Inspiré des notes de cours d'Environnement Immersif
+// Inspiré des notes de cours d'Environnement Immersif et de la Démo AR
 // Auteur : Frédérik Taleb
 // https://envimmersif-cegepvicto.github.io/exercice_adaptation_ar/
 
@@ -6,16 +6,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
 
 public class ARPlacementManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject PrefabXSymbol;
-    [SerializeField]
-    private GameObject PrefabOSymbol;
     [SerializeField]
     private GameObject PrefabGrille;
     private GameObject prefabActuel;
@@ -57,6 +54,14 @@ public class ARPlacementManager : MonoBehaviour
     {
         Vector2 positionTap = Mouse.current.position.ReadValue();
 
+        // Solution Suggéré par l'IA pour le raycast au travers du UI
+        if (IsPointerOverUI(positionTap))
+        {
+            return;
+        }
+        // Fin de la solution
+
+
         List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
         if (aRRaycastManager.Raycast(positionTap, hits, TrackableType.PlaneWithinPolygon))
@@ -68,8 +73,6 @@ public class ARPlacementManager : MonoBehaviour
 
             Vector3 position = pose.position + Vector3.up * 0.25f;
 
-
-            // Solution Suggéré par l'IA pour le repositionnement 
             if (instanceGrille == null)
             {
                 anchorObject = new GameObject("GrilleAnchor");
@@ -83,18 +86,64 @@ public class ARPlacementManager : MonoBehaviour
             }
             else
             {
-                if (!modeRepositionnement) return;
+                if (!modeRepositionnement)
+                {
+                    Ray ray;
+                    RaycastHit hit;
 
+                    ray = Camera.main.ScreenPointToRay(positionTap);
+                    if (Physics.Raycast(ray, out hit, 100))
+                    {
+                        if (hit.collider.GetComponent<GrilleCase>() != null)
+                        {
+                            hit.collider.GetComponent<GrilleCase>().OnTapped();
+                        }
+                    }
+                    return;
+                }
+
+                if (anchorObject == null) return;
                 anchorObject.transform.SetPositionAndRotation(position, pose.rotation);
             }
 
         }
     }
 
+    // Solution Suggéré par l'IA pour le raycast au travers du UI en conséquence du nouveau Input System
+    private bool IsPointerOverUI(Vector2 screenPosition)
+    {
+        if (EventSystem.current == null) return false;
+
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = screenPosition;
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (var result in results)
+        {
+            if (result.gameObject.name == "Canvas") continue; // Ignore le canvas
+
+            // Vérifie si c'est vraiment un élément du UI
+            if (result.gameObject.GetComponent<UnityEngine.UI.Selectable>() != null)
+            {
+                Debug.Log($"Blocked by: {result.gameObject.name}");
+                return true;
+            }
+        }
+
+        return false;
+    }
+    // Fin de la solution
+
+    public void ResetPlacement()
+    {
+        Destroy(instanceGrille);
+
+    }
+
     public void ModeRepositionnement()
     {
         modeRepositionnement = !modeRepositionnement;
-        Debug.Log(modeRepositionnement);
 
         if (modeRepositionnement)
         {
