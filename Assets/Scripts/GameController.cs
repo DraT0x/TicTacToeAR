@@ -1,4 +1,4 @@
-// Inspiré à 100% des notes de cours d'Environnement Immersif
+// Inspiré des notes de cours d'Environnement Immersif et de la Démo AR
 // Auteur : Frédérik Taleb
 // https://envimmersif-cegepvicto.github.io/exercice_adaptation_ar/
 
@@ -7,26 +7,23 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    // Singleton
+    // SINGLETON
     public static GameController Instance { get; private set; }
 
-    // UI UNITY
+    [Header("GUI")]
     [SerializeField]
     private TextMeshProUGUI JoueurActuelTexte;
-
-    [SerializeField]
-    private GameObject finPartiePannel;
-
-    [SerializeField]
-    private GameObject controlPannel;
-
-    [SerializeField]
-    private GameObject statusPannel;
-
     [SerializeField]
     private TextMeshProUGUI victoireTexte;
 
-    // Références Tic Tac Toe
+    [SerializeField]
+    private GameObject finPartiePannel;
+    [SerializeField]
+    private GameObject controlPannel;
+    [SerializeField]
+    private GameObject statusPannel;
+
+    // # GRILLE # //
     private GameObject grilleActuelle;
     private string[] grilleCases = new string[9];
 
@@ -38,7 +35,6 @@ public class GameController : MonoBehaviour
     };
 
     public string JoueurActuel { get; set; } = "X";
-
     private bool finPartie = false;
 
     private void Awake()
@@ -53,7 +49,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // Gestion Partie
+    /// <summary>
+    /// Fonction qui lance une nouvelle partie 
+    /// </summary>
+    /// <param name="nouvelleGrille"></param>
     public void NewGame(GameObject nouvelleGrille)
     {
         grilleActuelle = nouvelleGrille;
@@ -68,6 +67,9 @@ public class GameController : MonoBehaviour
         finPartiePannel.SetActive(false);
     }
 
+    /// <summary>
+    /// Fonction qui recommence une partie
+    /// </summary>
     public void ResetPlacement()
     {
         if (grilleActuelle == null) return;
@@ -75,6 +77,8 @@ public class GameController : MonoBehaviour
         JoueurActuel = "X";
         finPartie = false;
         finPartiePannel.SetActive(false);
+        controlPannel.SetActive(true);
+        statusPannel.SetActive(true);
 
         for (int i = 0; i < grilleCases.Length; i++)
             grilleCases[i] = "";
@@ -99,7 +103,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // Jeu
+    /// <summary>
+    /// Fonction pour jouer la case et qui vérifie si la partie est terminée
+    /// </summary>
+    /// <param name="index">index de la case séléctionnée</param>
     public void JouerCase(int index)
     {
         if (finPartie) return;
@@ -122,6 +129,9 @@ public class GameController : MonoBehaviour
         ChangerTour();
     }
 
+    /// <summary>
+    /// Changement de tour X -> O -> X
+    /// </summary>
     public void ChangerTour()
     {
         JoueurActuel = JoueurActuel == "X" ? "O" : "X";
@@ -129,7 +139,10 @@ public class GameController : MonoBehaviour
         JoueurActuelTexte.text = $"Tour de {JoueurActuel}";
     }
 
-    // Vérification Match
+    /// <summary>
+    /// Vérification de la condition de victoire
+    /// </summary>
+    /// <returns>Si le joueur a gagné</returns>
     private bool VerifierVictoire()
     {
         // Parcourir toutes les combinaisons gagnantes possibles
@@ -159,7 +172,7 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    // Suggestion IA : Méthode pour modifier la couleur de l'enfant
+    // Suggestion IA : Méthode pour activer le trigger d'un enfant d'une case
     private void ModificationVictoire(Transform parent)
     {
         Animator[] animators = parent.GetComponentsInChildren<Animator>();
@@ -171,6 +184,11 @@ public class GameController : MonoBehaviour
     }
     // Fin suggestion
 
+
+    /// <summary>
+    /// Vérification de la condition de match nul
+    /// </summary>
+    /// <returns>Si le match est nul</returns>
     private bool VerifierMatchNul()
     {
         if (VerifierVictoire())
@@ -186,6 +204,10 @@ public class GameController : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Affiche l'écran de fin
+    /// </summary>
+    /// <param name="texteAffichage">Le texte qui sera affiché à l'utilisateur</param>
     private void FinDePartie(string texteAffichage)
     {
         finPartie = true;

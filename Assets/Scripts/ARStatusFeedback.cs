@@ -1,4 +1,4 @@
-// Inspiré à 100% des notes de cours d'Environnement Immersif
+// Inspiré des notes de cours d'Environnement Immersif et de la Démo AR
 // Auteur : Frédérik Taleb
 // https://envimmersif-cegepvicto.github.io/exercice_adaptation_ar/
 
@@ -8,14 +8,16 @@ using UnityEngine.XR.ARFoundation;
 
 public class ARStatusFeedback : MonoBehaviour
 {
+    [Header("Manager")]
     [SerializeField] private ARPlaneManager planeManager;
+    
+    [Header("GUI")]
     [SerializeField] private TextMeshProUGUI statusText;
 
     private int planesCount = 0;
 
     void Update()
     {
-        // Compter les plans détectés
         planesCount = planeManager.trackables.count;
 
         if (planesCount == 0)

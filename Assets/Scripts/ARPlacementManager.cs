@@ -13,42 +13,45 @@ using UnityEngine.XR.ARSubsystems;
 
 public class ARPlacementManager : MonoBehaviour
 {
+    [Header("Grille | Ancre")]
     [SerializeField]
     private GameObject PrefabGrille;
-    private GameObject prefabActuel;
-
     private GameObject instanceGrille;
-
-    // Gestion de la grille / Repositionnement
     private GameObject anchorObject;
 
+    [Header("Repositionnement")]
     [SerializeField]
     private Image boutonRepositionnement;
     private bool modeRepositionnement;
 
+    [Header("AR Input | Raycast")]
     [SerializeField]
     private InputActionReference tapAction;
-
     [SerializeField]
     private ARRaycastManager aRRaycastManager;
 
-    private void Start()
-    {
-        prefabActuel = PrefabGrille;
-    }
-
+    /// <summary>
+    /// Activation de l'input map
+    /// </summary>
     private void OnEnable()
     {
         tapAction.action.canceled += Tap_canceled;
         tapAction.action.Enable();
     }
 
+    /// <summary>
+    /// Désactivation de l'input map
+    /// </summary>
     private void OnDisable()
     {
         tapAction.action.canceled -= Tap_canceled;
         tapAction.action.Disable();
     }
 
+    /// <summary>
+    /// Relâchement de la tap de l'utilisateur
+    /// </summary>
+    /// <param name="ctx"></param>
     private void Tap_canceled(InputAction.CallbackContext ctx)
     {
         Vector2 positionTap = Mouse.current.position.ReadValue();
@@ -79,7 +82,7 @@ public class ARPlacementManager : MonoBehaviour
 
                 anchorObject.transform.SetPositionAndRotation(position, pose.rotation);
 
-                instanceGrille = Instantiate(prefabActuel, position, pose.rotation);
+                instanceGrille = Instantiate(PrefabGrille, position, pose.rotation);
                 instanceGrille.transform.SetParent(anchorObject.transform);
                 GameController.Instance.NewGame(instanceGrille);
             }
@@ -108,7 +111,7 @@ public class ARPlacementManager : MonoBehaviour
         }
     }
 
-    // Solution Suggéré par l'IA pour le raycast au travers du UI en conséquence du nouveau Input System
+    // Solution Générée par l'IA pour le raycast au travers du UI en conséquence du nouveau Input System
     private bool IsPointerOverUI(Vector2 screenPosition)
     {
         if (EventSystem.current == null) return false;
@@ -133,6 +136,9 @@ public class ARPlacementManager : MonoBehaviour
     }
     // Fin de la solution
 
+    /// <summary>
+    /// Fonction qui change la couleur lorsque le bouton de repositionnement
+    /// </summary>
     public void ModeRepositionnement()
     {
         modeRepositionnement = !modeRepositionnement;
